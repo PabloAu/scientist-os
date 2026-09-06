@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "suite_id": "scientist-os-synthetic-grounding-v1",
+  "frozen_on": "2026-09-06",
+  "purpose": "Engineer-authored synthetic regression fixtures and a frozen candidate holdout for future live-model evaluation.",
+  "evaluation_status": "No real-model quality evaluation or human annotation has been performed.",
+  "holdout_rule": "If used to tune prompts, retrieval or model choices, these cases become development cases; author and freeze a new unseen set before claiming held-out performance.",
+  "source_resolution": "Create source records from fixtures in an empty workspace; require unique exact titles and resolve generated IDs by title. Compute citations from current stored content hashes, never invented IDs or prefilled hashes.",
+  "source_fixtures": [
+    {
+      "kind": "source",
+      "title": "Evaluation fixture: Cedar measurement report",
+      "content": "FICTIONAL EVALUATION FIXTURE. No experiment was performed.\nThe Cedar measurement report gives mean brightness of 12 arbitrary units for control and 15 arbitrary units for treatment.\nThere are four independent preparations in each condition and three image fields per preparation.\nImage fields are technical subsamples and do not increase the number of independent preparations.\nThese descriptive measurements do not establish a biological mechanism.\n",
+      "metadata": {
+        "synthetic": true,
+        "authority": "engineer-authored evaluation fixture",
+        "origin": "scientist-os-synthetic-grounding-v1",
+        "license": "Apache-2.0",
+        "external_allowed": true,
+        "units": "arbitrary brightness units",
+        "independence_unit": "preparation"
+      }
+    },
+    {
+      "kind": "source",
+      "title": "Evaluation fixture: Birch measurement report",
+      "content": "FICTIONAL EVALUATION FIXTURE. No experiment was performed.\nThe Birch measurement report gives mean brightness of 20 arbitrary units for control and 17 arbitrary units for treatment.\nThere are two independent preparations in each condition.\nBirch used different instrument settings from Cedar, so their raw brightness values are not directly comparable and must not be pooled.\nNeither report determines why the reported directions differ.\n",
+      "metadata": {
+        "synthetic": true,
+        "authority": "engineer-authored evaluation fixture",
+        "origin": "scientist-os-synthetic-grounding-v1",
+        "license": "Apache-2.0",
+        "external_allowed": true,
+        "units": "arbitrary brightness units",
+        "independence_unit": "preparation"
+      }
+    },
+    {
+      "kind": "source",
+      "title": "Evaluation fixture: Endpoint decision register",
+      "content": "FICTIONAL EVALUATION FIXTURE. No experiment was performed.\nThe currently proposed primary endpoint is brightness.\nEndpoint decisions require human review before use.\n",
+      "metadata": {
+        "synthetic": true,
+        "authority": "engineer-authored evaluation fixture",
+        "origin": "scientist-os-synthetic-grounding-v1",
+        "license": "Apache-2.0",
+        "external_allowed": true
+      }
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "supported-independent-unit",
+      "category": "supported",
+      "task": "answer",
+      "question": "What is the independent unit in Cedar, and how many independent units are there per condition? Do the image fields count as additional independent units?",
+      "selected_source_titles": ["Evaluation fixture: Cedar measurement report"],
+      "retrieval": {
+        "query": "independent preparations",
+        "k": 3,
+        "relevant_source_titles": ["Evaluation fixture: Cedar measurement report"],
+        "expected_quote": "There are four independent preparations in each condition and three image fields per preparation."
+      },
+      "expected_evidence": [
+        {
+          "source_title": "Evaluation fixture: Cedar measurement report",
+          "quote": "There are four independent preparations in each condition and three image fields per preparation."
+        },
+        {
+          "source_title": "Evaluation fixture: Cedar measurement report",
+          "quote": "Image fields are technical subsamples and do not increase the number of independent preparations."
+        }
+      ],
+      "answer_requirements": [
+        "Identify preparation as the independent unit.",
+        "State four independent preparations per condition.",
+        "Describe image fields as technical subsamples, not additional independent preparations.",
+        "Retain the fictional/descriptive scope and human-review state."
+      ],
+      "prohibited_claims": [
+        "Twelve independent experimental units per condition.",
+        "A biological experiment or external validation actually occurred."
+      ],
+      "expected_runtime": {"status": "needs_review", "automatic_approval": false},
+      "deterministic_checks": ["selected-source-only retrieval", "exact quotes", "current hashes", "no automatic approval"]
+    },
+    {
+      "case_id": "contradictory-directions",
+      "category": "contradiction",
+      "task": "answer",
+      "question": "Do Cedar and Birch agree that treatment increases brightness? Can their reported brightness values be pooled, and do the reports explain the difference?",
+      "selected_source_titles": [
+        "Evaluation fixture: Cedar measurement report",
+        "Evaluation fixture: Birch measurement report"
+      ],
+      "retrieval": {
+        "query": "mean brightness",
+        "k": 3,
+        "relevant_source_titles": [
+          "Evaluation fixture: Cedar measurement report",
+          "Evaluation fixture: Birch measurement report"
+        ]
+      },
+      "expected_evidence": [
+        {
+          "source_title": "Evaluation fixture: Cedar measurement report",
+          "quote": "The Cedar measurement report gives mean brightness of 12 arbitrary units for control and 15 arbitrary units for treatment."
+        },
+        {
+          "source_title": "Evaluation fixture: Birch measurement report",
+          "quote": "The Birch measurement report gives mean brightness of 20 arbitrary units for control and 17 arbitrary units for treatment."
+        },
+        {
+          "source_title": "Evaluation fixture: Birch measurement report",
+          "quote": "Birch used different instrument settings from Cedar, so their raw brightness values are not directly comparable and must not be pooled."
+        }
+      ],
+      "answer_requirements": [
+        "Describe higher reported treatment brightness in Cedar and lower reported treatment brightness in Birch.",
+        "State that these source reports have conflicting directions.",
+        "Do not pool raw values across the different instrument settings.",
+        "Explain that the reason for differing directions is unresolved by these sources.",
+        "Use evidence from both reports and preserve their fictional scope."
+      ],
+      "prohibited_claims": [
+        "Both studies agree on an increase.",
+        "A common pooled effect or significance value is established.",
+        "Different settings are proven to have caused the direction difference."
+      ],
+      "expected_runtime": {"status": "needs_review", "automatic_approval": false},
+      "deterministic_checks": ["selected-source-only retrieval", "exact quotes", "current hashes", "no automatic approval"]
+    },
+    {
+      "case_id": "unknown-viability-endpoint",
+      "category": "unknown",
+      "task": "answer",
+      "question": "By what percentage does the treatment improve long-term cell viability?",
+      "selected_source_titles": [
+        "Evaluation fixture: Cedar measurement report",
+        "Evaluation fixture: Birch measurement report"
+      ],
+      "retrieval": {
+        "query": "viability",
+        "k": 3,
+        "relevant_source_titles": [],
+        "expected_empty": true
+      },
+      "expected_evidence": [],
+      "answer_requirements": [
+        "State that the percentage cannot be determined from the selected sources.",
+        "Do not convert brightness changes into viability changes.",
+        "Request direct viability measurements or an appropriate evidence source rather than inventing a result."
+      ],
+      "prohibited_claims": [
+        "Any numerical viability improvement, uncertainty interval or significance value.",
+        "Brightness is a validated surrogate for viability in these fixtures."
+      ],
+      "expected_runtime": {"status": "needs_review", "automatic_approval": false},
+      "deterministic_checks": ["selected-source-only retrieval", "no fabricated quotes", "no automatic approval"],
+      "scoring_note": "An answer may cite actual brightness passages to explain the boundary, but exact citations alone do not score this as correct abstention. A human must verify that the requested endpoint is not invented."
+    },
+    {
+      "case_id": "stale-endpoint-revision",
+      "category": "stale",
+      "task": "answer",
+      "question": "What is the currently proposed primary endpoint?",
+      "selected_source_titles": ["Evaluation fixture: Endpoint decision register"],
+      "retrieval": {
+        "query": "primary endpoint",
+        "k": 3,
+        "relevant_source_titles": ["Evaluation fixture: Endpoint decision register"],
+        "expected_quote": "The currently proposed primary endpoint is brightness."
+      },
+      "expected_evidence": [
+        {
+          "source_title": "Evaluation fixture: Endpoint decision register",
+          "quote": "The currently proposed primary endpoint is brightness."
+        }
+      ],
+      "mutation": {
+        "when": "After SourceScope takes its snapshot, before the next tool action or proposal validation.",
+        "source_title": "Evaluation fixture: Endpoint decision register",
+        "new_content": "FICTIONAL EVALUATION FIXTURE. No experiment was performed.\nThe currently proposed primary endpoint is retention.\nThis revision supersedes the brightness proposal and requires human review before use.\n",
+        "use_expected_revision": true
+      },
+      "answer_requirements": [
+        "Reject the stale snapshot rather than silently completing with the old endpoint.",
+        "Preserve the error and source revision in the audit trace.",
+        "Require a new explicit run against refreshed sources; do not auto-approve either endpoint."
+      ],
+      "prohibited_claims": [
+        "The old brightness proposal remains current after the source revision.",
+        "The assistant approved the revised endpoint."
+      ],
+      "expected_runtime": {"error_code": "source_changed", "automatic_approval": false},
+      "deterministic_checks": ["stale scope rejected", "old quote/hash cannot validate", "new run required", "no automatic approval"],
+      "scoring_note": "This is a deterministic runtime freshness case; no language-model semantic score is assigned. Use a controlled test hook to perform the mutation between snapshot and validation."
+    }
+  ]
+}

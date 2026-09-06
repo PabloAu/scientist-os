@@ -1,0 +1,24 @@
+name: Verify beta
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.12', '3.13']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv sync --frozen --all-extras
+      - run: uv run --frozen ruff check src tests scripts
+      - run: uv run --frozen pytest
+      - run: uv build
+      - run: uv run --frozen python scripts/check_release.py
+      - run: uv run --frozen scientist-os demo --workspace workspaces/ci
+      - run: uv run --frozen scientist-os audit --workspace workspaces/ci

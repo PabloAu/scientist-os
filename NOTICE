@@ -1,0 +1,18 @@
+Scientist OS
+Copyright 2026 Pablo Gomez Garcia
+
+Generic software and workflows are available under the Apache License, Version 2.0.
+The owner authorized this release basis on 6 September 2026.
+
+Workflow concepts derive from private Cell-iSCAT-Writing revision
+00273003a5154672583888c6993751ad463f977e. No unpublished manuscript,
+source records, experimental data, scientific screenshots, sibling applications
+or source-project Git history are included. No third-party skill code is vendored.
+
+Original fictional text/numeric teaching fixtures in demo.py, examples/evaluation_cases.json
+and tests are dedicated under CC0 1.0 Universal, to the extent permitted by law:
+https://creativecommons.org/publicdomain/zero/1.0/
+They are not scientific observations, biological validation or human annotations.
+
+Third-party dependencies retain their own copyright and license terms.
+See docs/DEPENDENCIES.md for resolved versions and declared license metadata.

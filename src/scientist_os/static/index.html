@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="scientist-token" content="__CSRF_TOKEN__">
+  <meta name="description" content="A human-led research workspace for evidence, reproducible analysis and scientific writing.">
+  <title>Scientist OS · Research workspace</title>
+  <link rel="stylesheet" href="/static/style.css"><script src="/static/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to workspace</a>
+  <aside class="sidebar">
+    <a class="brand" href="#overview"><span class="brandmark">S<span>°</span></span><span>Scientist OS<small>THE RESEARCH WORKSPACE</small></span></a>
+    <div class="workspace-label"><span class="dot"></span> Local workspace <span class="beta">BETA</span></div>
+    <nav aria-label="Workspace sections">
+      <button data-page="overview" class="active"><span>◈</span> Overview</button>
+      <button data-page="records"><span>▤</span> Research records</button>
+      <button data-page="assistant"><span>✧</span> Research assistant</button>
+      <button data-page="analysis"><span>⌁</span> Analysis & figures</button>
+      <button data-page="workflow"><span>◎</span> Research lifecycle</button>
+      <button data-page="audit"><span>◇</span> Evidence audit</button>
+      <button data-page="activity"><span>↗</span> Activity & exports</button>
+    </nav>
+    <div class="sidebar-bottom"><p>You lead the science.<br>Your assistant keeps the trail.</p><button data-page="help">Guide & model connections <span>↗</span></button><small id="version">Local application</small></div>
+  </aside>
+  <div class="shell"><header><span id="breadcrumb">WORKSPACE / OVERVIEW</span><span class="header-note"><span class="dot"></span> Human review required</span></header>
+    <main id="main" tabindex="-1"><div class="loading">Opening your workspace…</div></main>
+    <footer>Scientist OS <span>Sources → methods → analysis → claims → article</span></footer>
+  </div>
+  <div id="notice" role="status" aria-live="polite"></div>
+  <dialog id="record-dialog" aria-labelledby="record-dialog-title">
+    <form id="record-form"><div class="dialog-heading"><h2 id="record-dialog-title">Register a research record</h2><button type="button" class="icon-button close-dialog" aria-label="Close record editor">×</button></div>
+      <p class="muted">Keep facts, uncertainty and source authority explicit. Saving creates an unreviewed record.</p>
+      <div class="form-grid"><label>Record type<select id="record-kind" required></select></label><label>Title<input id="record-title" required maxlength="300" placeholder="A name you will recognize later"></label></div>
+      <label>Content or source excerpt<textarea id="record-content" rows="8" maxlength="1000000" placeholder="Paste a protocol, a source passage, CSV data, a term definition or manuscript text."></textarea></label>
+      <label class="file-label">Load a text file (UTF-8, up to 1 MB)<input id="record-file" type="file" accept=".txt,.md,.csv,.json,.tsv"></label>
+      <div class="form-grid"><label>Origin / original locator<input id="record-origin" placeholder="DOI and page, repository, or original file location"></label><label>Authority<select id="record-authority"><option value="unresolved">Unresolved</option><option value="peer_reviewed">Peer-reviewed source</option><option value="preprint">Preprint</option><option value="project_observation">Project observation</option><option value="author_context">Author intent / context</option><option value="synthetic_example">Synthetic example</option></select></label></div>
+      <div class="form-grid"><label>Rights / license<input id="record-license" placeholder="Unresolved, internal use, CC BY 4.0…"></label><label>Units<input id="record-units" placeholder="µm, seconds, arbitrary units…"></label></div>
+      <div class="form-grid"><label>Independent unit<input id="record-independence" placeholder="day, preparation, animal, study…"></label><label>Protocol version<input id="record-protocol" placeholder="Version or immutable revision"></label></div>
+      <label>Link related records<select id="record-links" multiple size="4"></select><small>Use Ctrl / Cmd to select several. Links preserve lineage.</small></label>
+      <label class="check"><input type="checkbox" id="record-external"> I permit this record’s content and metadata to be sent to my configured external model.</label>
+      <details><summary>Additional metadata (JSON)</summary><label>Structured metadata<textarea id="record-metadata" rows="5">{}</textarea></label></details>
+      <div class="form-actions"><button type="button" class="secondary close-dialog">Cancel</button><button type="submit">Save record</button></div>
+    </form>
+  </dialog>
+  <dialog id="review-dialog" aria-labelledby="review-title"><form id="review-form"><div class="dialog-heading"><h2 id="review-title">Record a human review</h2><button type="button" class="icon-button close-dialog" aria-label="Close review">×</button></div><p id="review-record-label"></p><p class="muted">Approval records your decision for this revision. It does not independently validate a scientific claim.</p><label>Your name<input id="reviewer" required maxlength="120"></label><label>Decision<select id="review-decision"><option value="approved">Approve this revision for its stated use</option><option value="rejected">Reject / needs revision</option></select></label><label>Scope, evidence checked and limitations<textarea id="review-note" rows="4" required maxlength="5000"></textarea></label><label class="check"><input type="checkbox" required> I have inspected the record and the evidence relevant to this decision.</label><div class="form-actions"><button type="button" class="secondary close-dialog">Cancel</button><button type="submit">Save review</button></div></form></dialog>
+</body></html>
