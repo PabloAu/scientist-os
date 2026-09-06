@@ -1,5 +1,7 @@
 # Product roadmap and evidence gates
 
+Version 0.2 implements the authoring studio, original PDF/Office text import, explicit excerpts and Crossref bibliographic discovery. Those portions of sections 3 and 5 below are delivered; OCR, table reconstruction, systematic search histories and official journal connectors remain open. The [authoring guide](AUTHORING_GUIDE.md) defines current behavior.
+
 Scientist OS is intended first for individual experimental scientists, especially biology and microscopy researchers who need a traceable path from evidence and methods to an analysis, figure and manuscript. The next priorities should be driven by observed work and failures. This roadmap sets an order and completion gates; it promises no dates, paid resources, adoption numbers or unsupported capabilities.
 
 The current beta provides local records/provenance, deterministic CSV/meta-analysis tools, bounded model adapters, a selected-record MCP bridge, human review, lifecycle checkpoints and portable exports. Its software checks use synthetic fixtures. Real-model answer quality, independent scientific validation and sustained use by scientists remain separate work to measure.

@@ -12,6 +12,12 @@ Models cannot approve, read arbitrary files, execute commands, fetch URLs, publi
 
 ## Application and records
 
+Authoring checks the manuscript/discussion's explicit external permission in addition to selected source permissions. Only the selected passage or deliberately included discussion turns enter model context. Proposal application requires the original manuscript revision, unchanged evidence and a named reviewer. A local user may edit records directly; this remains an audit trail, not authenticated authorship.
+
+Project-library uploads are capped at 20 MB. Office XML is parsed with entity protection, bounded archive membership/expansion and active-object rejection; PDFs have bounded structure/text extraction. Extraction is not a hardened operating-system sandbox. Do not use the application as a public upload endpoint. Originals are content-addressed inside the workspace, hashes are checked on download/excerpt creation, and downloads are attachments rather than active inline documents. Scientific plots are generated from trusted registered numeric results, not executed imported SVG.
+
+Crossref discovery runs only on an explicit typed public query. It uses a fixed HTTPS endpoint, disabled redirects/proxies, bounded responses and timeouts. It has no workspace access and never downloads source URLs or restricted full text. Search results and imported documents remain untrusted.
+
 The API rejects unexpected hosts, cross-origin browser requests and writes missing the process request token. The token is not authentication against a local program. Dynamic record text is escaped. Figures use a deterministic renderer with escaped labels. Inputs have explicit limits.
 
 SQLite transactions couple changes and history. Hash chains reveal supported integrity failures but cannot protect against an attacker able to rewrite the whole database. Reviewer names are attributed statements, not authenticated identities. Metadata paths are never opened or copied by the record store.

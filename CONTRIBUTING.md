@@ -1,5 +1,13 @@
 # Contributing
 
+The 0.2 authoring interfaces are documented in [STUDIO_CONTRACT.md](docs/STUDIO_CONTRACT.md)
+and [PUBLISHING_CONTRACT.md](docs/PUBLISHING_CONTRACT.md). Run `node scripts/check_frontend.cjs`
+for the dependency-free frontend regressions. For packaging checks, install the
+built wheel into a fresh environment and run `scripts/smoke_install.py` with that
+environment's Python directly. This check deliberately refuses editable source
+imports. Use `scripts/check_release.py --dist <directory>`
+when retaining multiple release versions locally.
+
 Strengthen a real scientific workflow while preserving human control and traceable evidence.
 
 ```sh

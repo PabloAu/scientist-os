@@ -1,5 +1,11 @@
 # Beta implementation contract
 
+Version 0.2 extends this base contract with [authoring studio](STUDIO_CONTRACT.md),
+[publishing/library](PUBLISHING_CONTRACT.md), and [release scope](AUTHORING_RELEASE.md).
+The historical ownership list below describes the first beta. During 0.2, studio
+owns studio.py/new kinds, publishing owns publishing.py, the frontend agent owns
+static/, and the lead owns HTTP integration, literature, examples and release.
+
 Python >=3.12, uv, src layout. Local FastAPI application with a packaged static browser UI. SQLite persistence. Installable CLI. No hosted service is promised for the private-data beta. A model-free synthetic example must work immediately. JSON and Markdown exports preserve provenance and review state.
 
 ## Ownership

@@ -1,5 +1,10 @@
 # Beta verification record
 
+**Current release: [0.2.0b1 authoring verification](AUTHORING_VERIFICATION.md).**
+The remainder of this page preserves the historical 0.1.0b1 evidence record and
+its then-current limitations. PDF/Office imports, references and authoring were
+added in 0.2; use the current record and authoring guide for their scope.
+
 Version: 0.1.0b1. Date: 2026-09-06.
 
 This record describes the packaged beta and its completed local checks. No live-model quality, biological validation, independent human annotation, hosted deployment, or public user adoption is implied.

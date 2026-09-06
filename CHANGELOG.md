@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.0b1 — 2026-09-06
+
+Authoring studio for manuscripts, presentations and research discussions.
+
+- Redesigned navigation and typography; section navigator, manuscript canvas and contextual editing panel.
+- Stable manuscript sections, figures, references and supplementary material; exact UTF-16 passage selection, bounded proposals, named human application and stale-edit rejection.
+- Reference library with explicit Crossref discovery. Imported metadata never implies the paper was read.
+- PDF/DOCX/PPTX/text project library, original-byte hashes and downloads, text extraction locators, and revision-bound selected excerpts for long documents.
+- Four presentation layouts, slide ordering/editing, scientific plots, notes and editable PPTX export; manuscript DOCX and standalone HTML export.
+- Persistent discussions with explicit evidence and optional prior-turn selection.
+- Expanded fictional authoring example, integration/security checks, authoring guide and recorded export verification.
+
+Source disclosure remains explicit, model responses remain proposals, and applying an edit does not scientifically approve the manuscript. No live-model quality, scientist adoption, OCR, multi-user hosting or scientific validity is claimed.
+
 ## 0.1.0b1 — 2026-09-06
 
 First experimental Scientist OS beta, derived from the reusable source workflow with new product history and generic code.

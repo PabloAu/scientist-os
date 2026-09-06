@@ -2,9 +2,9 @@
 
 **Your evidence, methods, analyses and article—with a traceable assistant and a human in charge.**
 
-Scientist OS is a local research workspace for individual experimental scientists. Register sources and methods, connect data to reproducible calculations and figures, ask a bounded assistant to work from selected evidence, and review what becomes part of your scientific record.
+Scientist OS is a local research workspace for individual experimental scientists. Write a manuscript section by section, build a presentation from current figures, discuss research directions, and keep each output connected to its sources, methods and data. You choose what the assistant can read and which proposed changes to apply.
 
-**Version 0.1.0b1: an experimental software beta.** The calculation, persistence, tool-boundary and application workflows are tested on fictional fixtures. This is not validated scientific reasoning, an autonomous scientist, or a multi-user hosted service. The default assistant is a deterministic demonstration; real inference requires your model connection. See [verification and limitations](docs/RELEASE_CHECKLIST.md) and [model compatibility](docs/MODEL_COMPATIBILITY.md).
+**Version 0.2.0b1: an experimental authoring beta.** The calculation, persistence, tool-boundary and application workflows are tested on fictional fixtures. This is not validated scientific reasoning, an autonomous scientist, or a multi-user hosted service. The default assistant is a deterministic demonstration; real inference requires your model connection. See [verification and limitations](docs/RELEASE_CHECKLIST.md) and [model compatibility](docs/MODEL_COMPATIBILITY.md).
 
 ## Start in five minutes
 
@@ -14,7 +14,7 @@ Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and Git, t
 git clone https://github.com/PabloAu/scientist-os.git
 cd scientist-os
 uv sync --frozen --all-extras
-uv run scientist-os demo --workspace workspaces/teaching
+uv run scientist-os demo --authoring --workspace workspaces/teaching
 uv run scientist-os serve --workspace workspaces/teaching
 ```
 
@@ -27,17 +27,30 @@ uv run scientist-os init --workspace workspaces/my-research
 uv run scientist-os serve --workspace workspaces/my-research
 ```
 
-The interface and scientific data stay on your computer. External model transmission occurs only when you choose a configured external model and explicitly permit sharing each selected record. A local model server is responsible for its own onward network behavior; a local endpoint does not certify zero egress.
+The interface and scientific data stay on your computer. External model transmission occurs only when you choose a configured external model and explicitly permit sharing each selected record and writing/discussion context. Explicit Crossref searches send only the public query you type. A local model server is responsible for its own onward network behavior; a local endpoint does not certify zero egress.
+
+## Write and present your study
+
+The writing example opens with a six-section manuscript, a registered figure, four editable slides, a reference, project notes and a discussion topic. All content is fictional.
+
+1. Open **Manuscripts** and the teaching manuscript. Edit individual sections; attach figures and references; mark supplementary sections.
+2. Select a passage, choose evidence and ask for a rewrite or provenance check. Inspect the suggestion and citations before applying it with your name. The default demo exercises the tools; connect a real model for actual language generation.
+3. Inspect the assembled manuscript and download Word or HTML. References and supplements travel with it.
+4. Open **Presentations**. Edit slide titles, body text, speaker notes and figure links, then download an editable PowerPoint deck.
+5. Use **Project library** to import permitted PDFs, Word files, PowerPoint files, proposals or text. Register selected excerpts from long documents for bounded model use.
+6. Use **References** to enter details or explicitly search Crossref. In **Discussions**, select project evidence and literature excerpts and discuss alternatives, controls or next experiments.
+
+See the [authoring guide](docs/AUTHORING_GUIDE.md) for selection, review, reference, export and recovery details.
 
 ## Try one complete workflow
 
 1. Inspect the two synthetic source notes, including the contradictory pilot, in **Research records**.
-2. Open **Research assistant**, select those notes, and ask what the example supports. The demonstration runs real search/read/finish tools without an LLM.
+2. Open **Model runner**, select those notes, and ask what the example supports. The demonstration runs real search/read/finish tools without an LLM.
 3. Inspect quoted passages and the tool trace. Save an **unreviewed draft**, then edit or review it.
 4. Open **Analysis & figures**, choose *Synthetic fluorescence readings*, and use `signal`, `group`, and `day` as the columns.
 5. Group means should be **11 and 14**, with **three independent days per group**. Twelve readings are not 12 independent replicates. This is a synthetic known-answer fixture, not a biological result.
 6. Inspect parameters, input revisions and SVG. Review upstream records first. After reviewing an analysis, use **Regenerate linked figure** to bind a new figure to that revision.
-7. Download JSON and Markdown from **Activity & exports**. Stop the application and copy the whole workspace directory for a restorable backup.
+7. Download JSON and Markdown from **History & exports**. Stop the application and copy the whole workspace directory, including attachments, for a restorable backup.
 
 The [user manual](docs/USER_MANUAL.md) explains every screen, record type, review state and recovery path.
 
@@ -52,13 +65,18 @@ The [user manual](docs/USER_MANUAL.md) explains every screen, record type, revie
 | Meta-analysis | Independent-study inverse-variance fixed-effect and DerSimonian–Laird random-effects calculations with heterogeneity and uncertainty |
 | Figures | Reproducible SVG summaries and forest plots linked to calculation and input revision |
 | Experiments and planning | Selected-evidence proposals; editable experiment and decision records |
-| Article structure, prose and journals | Drafting tasks, editable manuscript records, style guidance and reviewed proposals; current journal facts require registered official sources |
+| Article writing | Section editor and assembled manuscript, passage proposals with human apply, linked figures, bibliography, supplements, editable Word and HTML exports |
+| Project documents | Original-byte PDF/DOCX/PPTX/text import, hashes, extracted page/slide/paragraph locators and selected excerpts; no OCR or layout reconstruction |
+| References | Editable bibliography, explicit Crossref metadata search, links to separately imported full text |
+| Presentations | Slide editor, four restrained layouts, registered figures, speaker notes and editable PPTX export |
+| Research directions | Persistent evidence-scoped discussions, explicit prior-turn context, alternatives and proposed experiments; no implicit current-field knowledge |
+| Journal selection | Evidence-backed proposal tasks; current journal facts require registered official sources |
 | Terminology | Preferred terms, definitions, aliases, evidence links and revision review |
 | Software/data/article association | Software records for repository URL, immutable commit, environment and run details, linked to analyses and manuscripts |
 | Human control | Explicit source selection, editable drafts, named revision-bound reviews, stale-evidence invalidation and no model approval tool |
 | Sharing and extensibility | Installable Python package, local browser UI, CLI, MCP tools and a small provider interface |
 
-The beta does not automatically acquire literature, parse original PDF pages, run arbitrary analysis code, operate laboratory equipment, submit articles or push to GitHub. An external agent may use its own tools for those tasks under its own permissions; Scientist OS does not sandbox that host. Keep large raw data and original documents in authoritative storage and register checked excerpts, metadata and immutable software references.
+The beta does not automatically acquire restricted full text, perform OCR or table reconstruction, run arbitrary analysis code, operate laboratory equipment, submit articles or push to GitHub. An external agent may use its own tools for those tasks under its own permissions; Scientist OS does not sandbox that host. Keep large raw data in authoritative storage and register checked excerpts, metadata and immutable software references. Imported documents are reading aids, not independently verified evidence.
 
 ## Bring your own model
 
@@ -75,6 +93,7 @@ It combines an approachable interface, local scientific data, cross-platform Pyt
 ## Documentation
 
 - [User manual](docs/USER_MANUAL.md)
+- [Manuscript, library and presentation guide](docs/AUTHORING_GUIDE.md)
 - [Model/API/MCP connections](docs/PROVIDERS.md) and [compatibility scope](docs/MODEL_COMPATIBILITY.md)
 - [Scientific methods and assumptions](docs/METHODS.md)
 - [Architecture](docs/ARCHITECTURE.md) and [development guide](CONTRIBUTING.md)
@@ -89,6 +108,7 @@ It combines an approachable interface, local scientific data, cross-platform Pyt
 uv sync --frozen --all-extras
 uv run pytest
 uv run ruff check src tests
+node scripts/check_frontend.cjs
 uv build
 uv run scientist-os audit --workspace workspaces/teaching
 ```

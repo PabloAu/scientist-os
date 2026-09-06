@@ -20,6 +20,7 @@ def main(argv=None) -> int:
             command.add_argument("--format", choices=["json", "markdown"], default="json")
         if name == "demo":
             command.add_argument("--domain", choices=["microscopy", "environment"], default="microscopy")
+            command.add_argument("--authoring", action="store_true", help="Include a fictional manuscript, references, slides and project documents")
     args = parser.parse_args(argv)
     from .workspace import Workspace
     try:
@@ -36,8 +37,14 @@ def main(argv=None) -> int:
         if args.command == "init":
             print(f"Workspace ready: {args.workspace.resolve()}")
         elif args.command == "demo":
-            from .demo import seed_demo
-            records = seed_demo(workspace, args.domain)
+            if args.authoring:
+                if args.domain != "microscopy":
+                    raise ValueError("The authoring example uses the microscopy teaching domain")
+                from .authoring_demo import seed_authoring_demo
+                records = seed_authoring_demo(workspace)
+            else:
+                from .demo import seed_demo
+                records = seed_demo(workspace, args.domain)
             print(f"Loaded {len(records)} fictional {args.domain} records into {args.workspace.resolve()}")
         elif args.command == "audit":
             from .science import audit_records

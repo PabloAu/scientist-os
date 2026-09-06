@@ -19,6 +19,7 @@ from .workflows import STAGES
 from .workspace import Workspace
 
 MAX_REQUEST = 2_000_000
+MAX_UPLOAD = 21 * 1024 * 1024
 
 
 class LocalGuard:
@@ -44,13 +45,14 @@ class LocalGuard:
             if not secrets.compare_digest(headers.get("x-scientist-token", ""), self.token):
                 return await JSONResponse({"detail": "Refresh this page before saving"}, 403)(scope, receive, send)
             body = bytearray()
+            limit = MAX_UPLOAD if scope.get("path") == "/api/library/import" else MAX_REQUEST
             while True:
                 message = await receive()
                 if message["type"] == "http.disconnect":
                     return
                 body.extend(message.get("body", b""))
-                if len(body) > MAX_REQUEST:
-                    return await JSONResponse({"detail": "Request exceeds 2 MB"}, 413)(scope, receive, send)
+                if len(body) > limit:
+                    return await JSONResponse({"detail": "Upload exceeds 21 MB" if limit == MAX_UPLOAD else "Request exceeds 2 MB"}, 413)(scope, receive, send)
                 if not message.get("more_body", False):
                     break
             delivered = False
@@ -241,17 +243,8 @@ def create_app(workspace_path: str | Path) -> FastAPI:
     @app.post("/api/agent")
     def agent(body: AgentInput):
         from .agent import AgentRunner
-        from .providers import DemoProvider, OpenAICompatibleProvider
-        if body.provider == "demo":
-            provider = DemoProvider()
-        elif body.provider == "configured":
-            if not os.getenv("SCIENTIST_OS_MODEL") or not os.getenv("SCIENTIST_OS_BASE_URL"):
-                raise ValueError("Configure a model on the server first; see the provider guide")
-            provider = OpenAICompatibleProvider(base_url=os.environ["SCIENTIST_OS_BASE_URL"],
-                                                 model=os.environ["SCIENTIST_OS_MODEL"],
-                                                 api_key=os.getenv("SCIENTIST_OS_API_KEY"))
-        else:
-            raise ValueError("Unknown provider")
+        from .authoring_api import get_provider
+        provider = get_provider(body.provider)
         return AgentRunner(workspace, provider).run(body.question, body.source_ids,
                                                      task=body.task, style=body.style,
                                                      max_steps=body.max_steps)
@@ -282,4 +275,6 @@ def create_app(workspace_path: str | Path) -> FastAPI:
         return Response(markdown_export(workspace), media_type="text/markdown",
                         headers={"Content-Disposition": 'attachment; filename="scientist-os-handoff.md"'})
 
+    from .authoring_api import register_authoring
+    register_authoring(app, workspace)
     return app

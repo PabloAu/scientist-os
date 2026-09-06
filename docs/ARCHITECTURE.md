@@ -40,6 +40,10 @@ flowchart LR
 | `workspace.py` | Typed record validation, optimistic revisions, acyclic provenance, content/state integrity, review invalidation, run/event persistence and export | No model, network, source-path traversal or arbitrary scientific execution |
 | `science.py` | Strict CSV summaries, independent study meta-analysis, escaped SVGs and metadata screening | Pure functions; no database, model, files or network |
 | `service.py` | User-directed numerical analysis, lineage registration, figure creation/regeneration, draft saving and Markdown handoff | Distinguishes human application actions from model tools; does not make multi-record workflows one implicit scientific approval |
+| `studio.py` | Manuscript sections, reference validation, selected-passage proposals/application, persistent research discussions | Exact revisions and selected context; models cannot apply or approve edits |
+| `publishing.py` | Original document registration, safe text extraction, exact excerpts, presentation records, PPTX/DOCX/HTML generation | No source URLs are followed; original bytes are content-addressed; export checks current provenance |
+| `literature.py` | Explicit public bibliographic queries to the fixed Crossref works endpoint | No workspace object or implicit project disclosure; results are metadata, not full-text review |
+| `authoring_api.py` | Strict local HTTP authoring contracts | Shared domain modules, existing origin/host/CSRF guard and bounded uploads |
 | `agent.py` | Selected-source snapshots, limits, tool allowlist, exact citation validation, bounded completion loop and trace | Models can search/read selected records and finish a proposal only |
 | `providers.py` | Deterministic demo and bounded OpenAI-compatible HTTP adapter | Translates model I/O; receives no workspace object or filesystem authority |
 | `mcp_server.py` | Fixed-selection stdio tools, instruction packet and proposal submission | Host supplies inference; the bridge does not certify the host's other actions |
@@ -53,13 +57,15 @@ The preserved private `.upstream/Cell-iSCAT-Writing` clone is a read-only proven
 
 Each workspace directory contains `scientist-os.sqlite3`. Schema version 1 stores three main tables: current `records`, append-only `events`, and immutable `runs`. A record has a stable generated ID, one allowed kind, title, UTF-8 content, bounded JSON metadata, upstream links, monotonically increasing revision, content SHA-256, review status and timestamps. The core additionally checks a digest of the complete stored record state.
 
-Kinds represent sources, datasets, materials, protocols, processed data, analyses, outputs, claims, terms, experiments, manuscripts, software, decisions and notes. Scientific metadata is explicit: authority, rights, units, independence, protocol/code revision, exclusions and model disclosure are recorded rather than inferred from filenames or customary practice.
+Kinds represent sources, datasets, materials, protocols, processed data, analyses, outputs, claims, terms, experiments, manuscripts, software, decisions, notes, references, documents, presentations and discussions. These additions preserve schema version 1 and existing record histories. Scientific metadata is explicit: authority, rights, units, independence, protocol/code revision, exclusions and model disclosure are recorded rather than inferred from filenames or customary practice.
 
 Links are **directed scientific dependencies**. They reference existing IDs and cannot point to self or form cycles. Citation references and `input_revisions` also contribute dependencies. This differs from an unconstrained knowledge graph: bidirectional convenience links would create ambiguous invalidation loops. Render reverse relationships by querying dependencies rather than storing a reverse dependency.
 
 Numerical analysis stores the exact input record revision/hash, parameters, deterministic result and software environment identifiers. A generated figure depends on its analysis revision and underlying source lineage. A full Git hash in a Software record is an explicit version declaration, not proof that the remote commit exists or that the executed working tree matched it.
 
-Raw files remain outside the database unless their text is deliberately imported. Metadata paths and URLs are inert references; they are not dereferenced during analysis/export. The displayed record hash identifies registered content, not the original external acquisition or PDF unless those exact bytes were separately hashed and documented.
+Raw files remain outside the database. Project-library uploads preserve original bytes in workspace `attachments/<sha256>`, alongside extracted text in a document record. Download and excerpt creation verify attachment bytes; a record content hash identifies extracted UTF-8 text and `attachment_sha256` identifies its original. Arbitrary metadata paths and URLs remain inert during analysis/export. JSON handoffs exclude attachment bytes; back up the entire stopped workspace for restoration.
+
+Manuscripts store stable section UUIDs with text, figure/reference links and a supplementary flag. A revision covers the entire manuscript. Passage offsets use browser UTF-16 code units with exact-text checks and reject split surrogate pairs. A proposal keeps source snapshots and the original manuscript revision; a named human applies it atomically. Applied source dependencies cannot be silently refreshed by later attached-figure saves. Discussions retain turns locally but include only deliberately selected prior turns in model context; their evidence must be reselected and current.
 
 ## Transactions, reviews and history
 

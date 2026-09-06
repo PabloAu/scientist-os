@@ -25,6 +25,7 @@ SCHEMA_VERSION = 1
 KINDS = frozenset({
     "source", "dataset", "material", "protocol", "processed_data", "analysis",
     "output", "claim", "term", "experiment", "manuscript", "software", "decision", "note",
+    "reference", "document", "presentation", "discussion",
 })
 MAX_CONTENT_BYTES = 2 * 1024 * 1024
 MAX_METADATA_BYTES = 256 * 1024

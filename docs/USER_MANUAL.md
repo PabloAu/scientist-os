@@ -1,5 +1,7 @@
 # Scientist OS user manual
 
+For the 0.2 authoring workspace, start with the [authoring guide](AUTHORING_GUIDE.md): manuscript sections, passage refinement, references, project documents, PowerPoint and research discussions. The record, analysis and review principles below still apply. **Project**, **Model runner**, and **History & exports** replace the older Overview, Research assistant, and Activity & exports labels.
+
 Scientist OS helps an individual scientist keep evidence, methods, analyses and writing connected. You choose the question, provide the records, decide what a model may see, and review what becomes part of your research. The beta combines a local browser interface, an installable Python application, deterministic scientific tools and an optional model connection.
 
 The first useful project can be small: one experimental question, one protocol, one dataset and one candidate figure. The application does not need a model account for record keeping, calculations, figures, audits or the teaching demonstration.
@@ -44,9 +46,9 @@ Create an empty workspace for actual research. Begin with a **Research note** de
 
 For a paper or report, inspect the original yourself and register a checked text excerpt. Include the DOI or stable location, page/section/table/figure locator, publication status and any important boundary. For example, record whether the passage is an observation, a hypothesis, an author's proposed method, or a secondary summary. A proposal or slide deck can be useful author context without becoming independent evidence for its claims.
 
-The browser loads UTF-8 `.txt`, `.md`, `.csv`, `.json` and `.tsv` files up to 1 MB into a record's text field. Loading JSON or TSV stores text; it does not automatically interpret a study schema or convert TSV to CSV. The numerical tool expects comma-separated CSV. PDF, Word, image and video extraction are not included in this beta. Keep originals in authoritative storage and register checked passages and their locations. The application never opens a filesystem path merely because you put it in metadata.
+The generic record editor loads UTF-8 `.txt`, `.md`, `.csv`, `.json` and `.tsv` files up to 1 MB into a record's text field. Loading JSON or TSV stores text; it does not automatically interpret a study schema or convert TSV to CSV. The numerical tool expects comma-separated CSV. The separate **Project library** supports original PDF, Word and PowerPoint text extraction and retains their original bytes; see the [authoring guide](AUTHORING_GUIDE.md). Image/video extraction and OCR are not implemented. The application never opens a filesystem path merely because you put it in metadata.
 
-The SHA-256 shown in the app identifies the **registered UTF-8 content**. It is not automatically a checksum of the original PDF, raw acquisition file or external repository. If you independently hash an original, record its checksum and how it was obtained in additional metadata.
+The record SHA-256 identifies the **registered UTF-8 content**. Project-library imports additionally store `attachment_sha256` for the original file bytes; those are distinct hashes. Raw acquisitions and external repositories are not automatically hashed. Record their checksums and how they were obtained when registering them.
 
 ### Fields in the record editor
 
@@ -261,7 +263,7 @@ Exports include registered research text and metadata; JSON also includes histor
 
 For a restorable backup, stop the application and any MCP process using that workspace, then copy the **entire workspace directory** to a new location using your normal backup tool. Reopen the copy with `scientist-os serve --workspace <copied-directory>` and run its audit. Keep the original backup intact while checking a copy. Do not copy only selected database files while a process is writing them.
 
-JSON is a portable handoff, not an import/restore format in this beta. Reopening the database folder is the supported continuity path. Back up original PDFs, images, raw acquisitions and external code independently: a recorded path is not a copy of the source. An app upgrade should be preceded by a stopped-workspace backup; unknown database schema versions are refused rather than silently migrated.
+JSON is a portable handoff, not an import/restore format in this beta. Reopening the complete workspace folder is the supported continuity path. Include its `attachments/` directory: original imported documents are stored there and are not embedded in JSON. Back up externally referenced images, raw acquisitions and code separately: a recorded path is not a copy. An app upgrade should be preceded by a stopped-workspace backup; unknown database schema versions are refused rather than silently migrated.
 
 The generic application uses Apache-2.0. That does not change the license or confidentiality of your imported sources, figures, datasets or manuscripts.
 
@@ -284,6 +286,6 @@ The generic application uses Apache-2.0. That does not change the license or con
 | Citation or source changed | Reinspect the original and registered excerpt, then run again. Old quotations are not silently promoted to the new source revision. |
 | Unknown schema/database-integrity error | Stop, preserve the workspace and backup, record the version and error, and obtain support. Do not reset database versions or modify event tables manually. |
 
-The browser importer is limited to 1 MB; model selections have smaller character limits. Figures support up to 200 groups/studies, even though the pure numerical functions accept larger bounded inputs. Large imaging data, hierarchical modelling, arbitrary code execution, automatic literature search/PDF ingestion, multi-user hosting and autonomous publication remain outside this beta.
+The generic text editor is limited to 1 MB; Project library imports support 20 MB originals with separate extraction bounds. Model selections have smaller character limits, so create explicit excerpts for long documents. Figures support up to 200 groups/studies in the analysis view; Office slide layouts have tighter bounds and reject crowded figures. Large imaging data, hierarchical modelling, arbitrary code execution, OCR/table reconstruction, multi-user hosting and autonomous publication remain outside this beta. Crossref discovery and native PDF/Office text import are explicit user actions.
 
 Use [Scientific methods](METHODS.md), [Model connections](PROVIDERS.md), [Architecture](ARCHITECTURE.md) and [Evaluation protocol](EVALUATION_PROTOCOL.md) when you need the exact assumptions, extension contract or evidence behind a capability.

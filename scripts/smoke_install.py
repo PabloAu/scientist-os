@@ -2,6 +2,8 @@
 
 import json
 import tempfile
+from io import BytesIO
+from zipfile import ZipFile
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -41,9 +43,52 @@ def main():
             assert client.get("/api/export.md").status_code == 200
         reopened = Workspace(workspace.root)
         assert len(reopened.list_records()) == 11 and len(reopened.list_runs()) == 1
+        authoring = create_app(Path(temporary) / "authoring")
+        with TestClient(authoring) as client:
+            client.headers["x-scientist-token"] = authoring.state.csrf_token
+            assert client.get("/static/studio.js").status_code == 200
+            seeded = client.post("/api/demo/authoring")
+            assert seeded.status_code == 200, seeded.text
+            items = seeded.json()["records"]
+            manuscript = next(r for r in items if r["kind"] == "manuscript")
+            deck = next(r for r in items if r["kind"] == "presentation")
+            document = next(r for r in items if r["kind"] == "document")
+            topic = next(r for r in items if r["kind"] == "discussion")
+            evidence = next(r for r in items if r["kind"] == "source")
+            section = manuscript["metadata"]["sections"][0]
+            passage = client.post(f"/api/manuscripts/{manuscript['id']}/proposals", json={
+                "expected_revision": 1, "section_id": section["id"], "start": 0, "end": 2,
+                "selected_text": "We", "instruction": "Improve the scientific prose without changing the scope.",
+                "source_ids": [evidence["id"]]})
+            assert passage.status_code == 200, passage.text
+            applied = client.post(f"/api/manuscripts/{manuscript['id']}/proposals/{passage.json()['proposal']['id']}/apply",
+                                  json={"expected_revision": 1, "reviewer": "Installed-wheel test",
+                                        "replacement": "Here we", "note": "Fictional engineering check only"})
+            assert applied.status_code == 200 and applied.json()["manuscript"]["review_status"] == "unreviewed"
+            word = client.get(f"/api/manuscripts/{manuscript['id']}/export.docx")
+            assert word.status_code == 200, word.text[:100]
+            with ZipFile(BytesIO(word.content)) as archive:
+                assert b"Here we illustrate" in archive.read("word/document.xml")
+            powerpoint = client.get(f"/api/presentations/{deck['id']}/export.pptx")
+            assert powerpoint.status_code == 200, powerpoint.text[:100]
+            with ZipFile(BytesIO(powerpoint.content)) as archive:
+                assert "ppt/slides/slide4.xml" in archive.namelist()
+            original = client.get(f"/api/library/{document['id']}/download")
+            assert original.status_code == 200 and b"No real experiment" in original.content
+            excerpt = client.post(f"/api/library/{document['id']}/excerpts", json={
+                "expected_revision": 1, "start": 0, "end": 40,
+                "selected_text": document["content"][:40], "title": "Installed-wheel excerpt"})
+            assert excerpt.status_code == 201, excerpt.text
+            turn = client.post(f"/api/discussions/{topic['id']}/turns", json={
+                "expected_revision": 1, "question": "What should a real experiment test?",
+                "source_ids": [evidence["id"]], "author": "Installed-wheel test"})
+            assert turn.status_code == 200 and turn.json()["run"]["status"] == "needs_review"
+            assert client.get("/api/audit").json()["integrity"] == []
     print(json.dumps({"result": "passed", "version": scientist_os.__version__, "installed_module": str(module_path),
                       "checks": ["installed static assets", "demo", "three-step agent", "unreviewed draft", "analysis",
-                                 "exact figure bytes", "JSON/Markdown export", "reopen"]}, indent=2))
+                                 "exact figure bytes", "JSON/Markdown export", "reopen", "authoring assets",
+                                 "selected passage and human apply", "DOCX/PPTX exports", "original download",
+                                 "exact source excerpt", "persistent discussion"]}, indent=2))
 
 
 if __name__ == "__main__":

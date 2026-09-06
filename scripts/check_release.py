@@ -1,6 +1,7 @@
 """Inspect source/wheel allowlists and documentation links before distribution."""
 
 import re
+import argparse
 import tarfile
 import zipfile
 from pathlib import Path
@@ -19,7 +20,10 @@ def check_members(names):
 
 
 def main():
-    archives = [*ROOT.joinpath("dist").glob("*.whl"), *ROOT.joinpath("dist").glob("*.tar.gz")]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dist", type=Path, default=ROOT / "dist")
+    directory = parser.parse_args().dist
+    archives = [*directory.glob("*.whl"), *directory.glob("*.tar.gz")]
     if len(archives) != 2:
         raise ValueError("Build exactly one wheel and one source archive before the release check")
     for archive in archives:
