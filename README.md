@@ -17,7 +17,7 @@ The host needs the installed Python command, a selected workspace and explicitly
 For a development checkout:
 
 ```sh
-git clone https://github.com/PabloAu/scientist-os.git
+git clone --branch codex/conversational-prototype https://github.com/PabloAu/scientist-os.git
 cd scientist-os
 uv sync --frozen --all-extras
 uv run scientist-os host --workspace workspaces/my-research catalog
