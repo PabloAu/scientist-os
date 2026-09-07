@@ -7,7 +7,8 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-FORBIDDEN = {".upstream", ".git", ".venv", ".uv-cache", "workspaces", "private", "__pycache__"}
+FORBIDDEN = {".upstream", ".git", ".venv", ".host-env", ".uv-cache", "workspaces",
+             "artifacts", "private", "__pycache__"}
 
 
 def check_members(names):
@@ -38,6 +39,8 @@ def main():
             raise ValueError("Browser interface missing from package")
         if not any(name.endswith("LICENSE") for name in names):
             raise ValueError("License missing from package")
+        if not any(name.endswith("skills/scientist-os/SKILL.md") for name in names):
+            raise ValueError("Conversational scientific skill missing from package")
         print(f"Inspected {archive.name}: {len(names)} members; no forbidden paths")
     documents = [*ROOT.glob("*.md"), *ROOT.joinpath("docs").rglob("*.md")]
     for document in documents:

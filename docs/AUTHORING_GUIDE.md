@@ -1,3 +1,5 @@
+> Historical v0.2 browser/bounded-provider documentation. For the current conversational prototype, start with [the host manual](CONVERSATIONAL_MANUAL.md) and [0.3 verification](PROTOTYPE_VERIFICATION.md).
+
 # Write, discuss and present
 
 Scientist OS 0.2 adds a working authoring studio to the evidence workspace. It is a

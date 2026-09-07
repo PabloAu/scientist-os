@@ -1,3 +1,5 @@
+> Historical v0.2 browser/bounded-provider documentation. For the current conversational prototype, start with [the host manual](CONVERSATIONAL_MANUAL.md) and [0.3 verification](PROTOTYPE_VERIFICATION.md).
+
 # Beta verification record
 
 **Current release: [0.2.0b1 authoring verification](AUTHORING_VERIFICATION.md).**

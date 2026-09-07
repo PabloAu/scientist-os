@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "scientist-os"
-version = "0.2.0b1"
-description = "A local scientific assistant with evidence-linked records, bounded agents, and human review"
+version = "0.3.0b1"
+description = "Portable scientific procedures and reproducible Python tools for conversational agent hosts"
 readme = "README.md"
 requires-python = ">=3.12"
 authors = [{name = "Pablo Gomez Garcia"}]
@@ -37,8 +37,11 @@ dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
 [tool.hatch.build.targets.wheel]
 packages = ["src/scientist_os"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"host-package/scientist-os" = "scientist_os/host_package"
+
 [tool.hatch.build.targets.sdist]
-include = ["src/", "tests/", "docs/", "examples/", "scripts/", "README.md", "CHANGELOG.md", "SECURITY.md", "CONTRIBUTING.md", "NOTICE", "LICENSE*", "pyproject.toml", "uv.lock", "AGENTS.md"]
+include = ["src/", "tests/", "docs/", "examples/", "scripts/", "host-package/", "README.md", "CHANGELOG.md", "SECURITY.md", "CONTRIBUTING.md", "NOTICE", "LICENSE*", "pyproject.toml", "uv.lock", "AGENTS.md"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

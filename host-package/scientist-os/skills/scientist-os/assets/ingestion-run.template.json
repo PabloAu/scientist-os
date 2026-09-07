@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "contract": "portable-ingestion-run",
+  "purpose": "Populate and validate against actual source scope before host delegation; not an API request.",
+  "run_id": null,
+  "profile": "balanced",
+  "intervention_policy": "routine-authorized",
+  "authorization_basis": null,
+  "coordinator_only_integrator": true,
+  "lanes": [
+    {
+      "lane_id": null,
+      "question": null,
+      "primary_topic": null,
+      "source_ids": [],
+      "required_reads": [],
+      "required_procedures": [],
+      "allowed_handoff_path": null,
+      "state_ceiling": "mapped",
+      "continuation_boundary": null,
+      "relative_cost": "medium"
+    }
+  ],
+  "handoff_contract": {
+    "run_id": null,
+    "lane_id": null,
+    "canonical_writes": [],
+    "source_results": [
+      {
+        "source_id": null,
+        "sha256_before": null,
+        "sha256_after": null,
+        "extraction_state": null,
+        "proposed_state": null,
+        "topics": [],
+        "linked_records": [],
+        "selected_locators": [],
+        "visually_inspected_locators": [],
+        "visual_observations": [],
+        "authority_boundary": null,
+        "terminology_disposition": null,
+        "evidence_rows": []
+      }
+    ],
+    "coverage_assessment": {
+      "decision": "continuation-required",
+      "basis": null,
+      "search_disposition": null,
+      "acquisition_disposition": null
+    },
+    "problems": [],
+    "unresolved_blockers": [],
+    "continuation_boundary": null,
+    "skill_disposition": "existing-adequate",
+    "proposed_integration": {
+      "source_records": [],
+      "manifest_updates": [],
+      "status_updates": [],
+      "topic_updates": [],
+      "terminology_updates": [],
+      "evidence_updates": [],
+      "project_link_updates": [],
+      "batch_registry_row": null,
+      "inapplicable_surface_reasons": []
+    }
+  },
+  "coordinator_verification": {
+    "source_ownership_and_paths": null,
+    "original_integrity": null,
+    "state_ceiling": null,
+    "independently_inspected_locators": [],
+    "semantic_findings": [],
+    "registry_reconciliation": null,
+    "integration_status": "not-started"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "scientist-os",
+  "version": "0.3.0-beta.1",
+  "description": "Conversation-led scientific project work with portable evidence procedures and reproducible Python tools.",
+  "author": {
+    "name": "Scientist OS contributors"
+  },
+  "skills": "./skills/",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/PabloAu/scientist-os",
+  "interface": {
+    "displayName": "Scientist OS",
+    "shortDescription": "Research through conversation, evidence and tools.",
+    "longDescription": "A portable scientific operating procedure for a capable local agent host. Maintains project continuity, controlled evidence, executable analyses and reviewable research artifacts. Host tools and the separately installed Python core supply execution; scientific approval remains with the scientist.",
+    "developerName": "Scientist OS contributors",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Use Scientist OS to start or resume my research project and carry out the work I describe."
+  }
+}

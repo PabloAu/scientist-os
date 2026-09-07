@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "contract": "portable-project-checkpoint",
+  "purpose": "Copy and populate from actual observations; this is not an executable API request.",
+  "project_identity": null,
+  "current_goal": null,
+  "scientific_lead": null,
+  "permitted_roots": [],
+  "source_rights_and_disclosure_scope": [],
+  "host_capabilities_observed": [],
+  "procedure_version": null,
+  "status": "uninitialized",
+  "decisions": [],
+  "open_material_questions": [],
+  "active_task": {
+    "id": null,
+    "intent": null,
+    "input_versions": [],
+    "completed_actions": [],
+    "uncertain_actions_to_reconcile": [],
+    "pending_actions": [],
+    "artifact_versions": [],
+    "next_safe_step": null
+  },
+  "problems": [],
+  "changed_evidence_impacts": [],
+  "updated_at": null
+}

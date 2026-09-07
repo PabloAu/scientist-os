@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.3.0b1 — 2026-09-07
+
+First host-first conversational Scientist OS prototype.
+
+- Portable skill/plugin preserving ten scientific stages and 53 detailed controls.
+- Action-capable Python/CLI/MCP services for permitted-folder ingestion, scoped evidence, scientific decisions, project context, tasks and interruption recovery.
+- Committed Python execution, explicit immutable inputs, environment/QC/run records, integrity verification and numerical/exact replay.
+- Controlled study selection, source-quoted extraction, comparability, frozen synthesis and sensitivity analysis.
+- Source-bound manuscript, proposal, figure, supplement and deck creation; exact passage editing, immutable exports, visual-inspection receipts and stale gates.
+- Frozen review baselines, evidence-bound requests, problem-to-procedure learning and native chart-workbook import recovery.
+- Live host and fresh-context fictional journey verification; editable artifacts rendered in actual Office. The historical bounded browser assistant remains a separate legacy interface.
+
+No real-data scientific validation, human usability study, automatic laboratory operation, hosted multi-user product or other-host/model parity is claimed.
+
 ## 0.2.0b1 — 2026-09-06
 
 Authoring studio for manuscripts, presentations and research discussions.

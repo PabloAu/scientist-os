@@ -1,3 +1,5 @@
+> Historical v0.2 browser/bounded-provider documentation. For the current conversational prototype, start with [the host manual](CONVERSATIONAL_MANUAL.md) and [0.3 verification](PROTOTYPE_VERIFICATION.md).
+
 # Architecture and extension boundaries
 
 Scientist OS is a single-user, local-first research workspace with a Python core, a packaged browser interface and a replaceable model adapter. Its central separation is between **registered evidence**, **deterministic computation**, **model proposals** and **human review**. A language model does not own the database, approve a scientific conclusion or execute arbitrary analysis code.

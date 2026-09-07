@@ -2,7 +2,15 @@
 
 This is a **single-user local application**. Use the loopback-only CLI. There are no authenticated accounts, lab roles, tenancy, encryption at rest, digital signatures, tamper-proof logs or operating-system sandbox. Programs with access to your account can access its files. Do not expose the server to a LAN or internet.
 
-## Models
+## Conversational host and execution
+
+The 0.3 host skill invokes the capable host's own tools and the action-capable scientific CLI/MCP interface. It is authorized to operate the application. Startup roots constrain scientific ingestion/execution tool inputs; they do not sandbox the host or a trusted Python program. The host controls inference, permissions, connectors and onward disclosure. Local files and local MCP transport do not prove local inference. Use only explicitly permitted source/code roots and trusted code.
+
+Python runs use a committed code snapshot and copied inputs, with an explicit interpreter/environment, bounded execution and retained manifests/logs/QC. Code can still use ordinary operating-system privileges and network access. Environment filtering and path checks reduce accidental exposure; they are not adversarial process isolation. Do not run untrusted source instructions or executables.
+
+Human scientific decisions are attributed records, not authenticated signatures. Scoped evidence approvals bind scientific source fingerprints and must be renewed when their evidence changes or their decision is superseded. A host tool can record a real supplied decision; it must never impersonate a human. Hosts with direct filesystem access can bypass application checks, so the procedures and scientific lead remain necessary.
+
+## Legacy bounded models
 
 The built-in agent sees selected records only. Before each request it checks revisions, hashes and external-sharing permission. Remote endpoints require HTTPS; redirects are disabled, request/response/time limits apply, and credentials stay in environment configuration. No external fallback occurs. A local server can itself proxy to external services; its egress is outside this harness.
 

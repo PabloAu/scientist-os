@@ -2,13 +2,18 @@
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 from . import __version__
 
 
 def main(argv=None) -> int:
-    parser = argparse.ArgumentParser(prog="scientist-os", description="Human-led scientific research workspace")
+    argv = sys.argv[1:] if argv is None else argv
+    if argv and argv[0] == "host":
+        from .host_cli import main as host_main
+        return host_main(argv[1:])
+    parser = argparse.ArgumentParser(prog="scientist-os", description="Scientist OS: use 'host --help' for conversational tools; legacy inspection commands below")
     parser.add_argument("--version", action="version", version=__version__)
     sub = parser.add_subparsers(dest="command", required=True)
     for name in ("init", "demo", "serve", "audit", "export"):

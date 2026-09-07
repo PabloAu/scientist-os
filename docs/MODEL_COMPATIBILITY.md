@@ -1,3 +1,5 @@
+> Historical v0.2 browser/bounded-provider documentation. For the current conversational prototype, start with [the host manual](CONVERSATIONAL_MANUAL.md) and [0.3 verification](PROTOTYPE_VERIFICATION.md).
+
 # Model compatibility and validation status
 
 This beta implements a provider-neutral research harness. It does **not** claim that every model or assistant application has been tested. Model quality, tool-call reliability, endpoint interoperability, and the scientific usefulness of responses require separate evaluation.

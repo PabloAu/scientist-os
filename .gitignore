@@ -1,5 +1,6 @@
 .upstream/
 .venv/
+.host-env/
 .uv-cache/
 .uv-python/
 __pycache__/

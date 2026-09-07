@@ -1,3 +1,5 @@
+> Historical v0.2 browser/bounded-provider documentation. For the current conversational prototype, start with [the host manual](CONVERSATIONAL_MANUAL.md) and [0.3 verification](PROTOTYPE_VERIFICATION.md).
+
 # Product roadmap and evidence gates
 
 Version 0.2 implements the authoring studio, original PDF/Office text import, explicit excerpts and Crossref bibliographic discovery. Those portions of sections 3 and 5 below are delivered; OCR, table reconstruction, systematic search histories and official journal connectors remain open. The [authoring guide](AUTHORING_GUIDE.md) defines current behavior.

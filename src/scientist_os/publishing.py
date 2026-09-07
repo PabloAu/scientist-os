@@ -60,7 +60,7 @@ def _ids(value, field, limit=64):
     return value
 
 
-def _safe_archive(data):
+def _safe_archive(data, *, allow_chart_workbooks=True):
     try:
         archive = zipfile.ZipFile(io.BytesIO(data))
         members = archive.infolist()
@@ -80,8 +80,18 @@ def _safe_archive(data):
             if ((member.external_attr >> 16) & 0o170000) == 0o120000:
                 raise ValueError("Office archive contains symbolic links")
             lower = name.lower()
-            if any(x in lower for x in ("vbaproject", "/activex/", "/embeddings/")):
+            if any(x in lower for x in ("vbaproject", "/activex/")):
                 raise ValueError("Macro, ActiveX and embedded-object Office documents are unsupported")
+            if "/embeddings/" in lower:
+                # Native PowerPoint charts contain an inert OOXML workbook. It is
+                # safe to validate bounded XML without executing or extracting it.
+                # OLE, nested embeddings and macro workbooks remain unsupported.
+                if not (allow_chart_workbooks and lower.startswith("ppt/embeddings/")
+                        and lower.endswith(".xlsx")):
+                    raise ValueError("Macro, ActiveX and embedded-object Office documents are unsupported")
+                workbook_xml = _safe_archive(archive.read(name), allow_chart_workbooks=False)
+                if "xl/workbook.xml" not in workbook_xml:
+                    raise ValueError("Embedded chart workbook has no spreadsheet body")
         if "[Content_Types].xml" not in names:
             raise ValueError("Not an Office Open XML document")
         # Parse each XML part through a DTD/entity-safe parser, including parts we
@@ -227,6 +237,7 @@ def _extract(filename, data):
                               for paragraph in xml[name].iter("{http://schemas.openxmlformats.org/drawingml/2006/main}p")]
                 segments.append((f"Slide {i}", "\n".join(x for x in paragraphs if x)))
             limitations += ["Slide text only: images, charts, equations, animation and speaker notes are not extracted."]
+            limitations += ["Embedded native chart workbooks are checked as inert Office archives; their values are not extracted or scientifically verified."]
         limitations += ["External links and Office objects are never fetched or executed."]
         method = "Office XML text extraction"
     elif suffix == ".pdf":

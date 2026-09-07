@@ -1,3 +1,5 @@
+> Historical v0.2 browser/bounded-provider documentation. For the current conversational prototype, start with [the host manual](CONVERSATIONAL_MANUAL.md) and [0.3 verification](PROTOTYPE_VERIFICATION.md).
+
 # Connect your model
 
 Scientist OS separates the research workspace, the allowed tools, and the model. Keep the same records and human review process when you change models.

@@ -1,122 +1,72 @@
 # Scientist OS
 
-**Your evidence, methods, analyses and article—with a traceable assistant and a human in charge.**
+**A scientific project companion inside your capable conversational agent host.**
 
-Scientist OS is a local research workspace for individual experimental scientists. Write a manuscript section by section, build a presentation from current figures, discuss research directions, and keep each output connected to its sources, methods and data. You choose what the assistant can read and which proposed changes to apply.
+Bring a permitted folder, ask a question, request an analysis, select a passage or correct an assumption. The assistant uses its available tools to do the work; Scientist OS preserves sources, scientific decisions, evidence states, versioned calculations, editable artifacts and a continuation point for the next conversation.
 
-**Version 0.2.0b1: an experimental authoring beta.** The calculation, persistence, tool-boundary and application workflows are tested on fictional fixtures. This is not validated scientific reasoning, an autonomous scientist, or a multi-user hosted service. The default assistant is a deterministic demonstration; real inference requires your model connection. See [verification and limitations](docs/RELEASE_CHECKLIST.md) and [model compatibility](docs/MODEL_COMPATIBILITY.md).
+**0.3.0b1 is the first host-first conversational prototype.** It includes a portable scientific skill/plugin and a Python action interface. The local Codex host was exercised with actual authorized inference and tool execution across nine fictional journeys. This establishes a working software path, not human usability, scientific validity or equivalent capability on another host/model. Read the [verification record](docs/PROTOTYPE_VERIFICATION.md).
 
-## Start in five minutes
+## Start through conversation
 
-Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and Git, then:
+Install the Python package and Scientist OS skill/plugin using the [installation guide](docs/HOST_INSTALLATION.md). Open a capable host conversation with the skill available and say:
+
+> Use Scientist OS for this research project. Read its saved context and pending work, or initialize it if empty. Incorporate the folder I have permitted, explain what it supports and what is missing, and continue through conversation. Preserve originals and ask me about material scientific facts or decisions.
+
+The host needs the installed Python command, a selected workspace and explicitly permitted input/software roots. Its existing account supplies inference; no separate model API or paid compute is required by this package. Account limits and host data-handling policies still apply.
+
+For a development checkout:
 
 ```sh
 git clone https://github.com/PabloAu/scientist-os.git
 cd scientist-os
 uv sync --frozen --all-extras
-uv run scientist-os demo --authoring --workspace workspaces/teaching
-uv run scientist-os serve --workspace workspaces/teaching
+uv run scientist-os host --workspace workspaces/my-research catalog
 ```
 
-Open **http://127.0.0.1:8765** in your browser. No model account or API key is needed for the teaching example. Use Python 3.12 or newer; uv can provision a compatible interpreter. Stop the application with Ctrl+C.
+See the [conversational manual](docs/CONVERSATIONAL_MANUAL.md) and [nine example journeys](examples/conversational/journeys.md). Conversations drive the tools; there is no prescribed sequence of record-selection forms.
 
-For your own research, use a separate workspace:
+## What accompanies the scientist
 
-```sh
-uv run scientist-os init --workspace workspaces/my-research
-uv run scientist-os serve --workspace workspaces/my-research
-```
+| Work | Prototype behavior |
+|---|---|
+| Mixed research material | Scout permitted folders; preserve original bytes; index experiments, protocols, materials, CSV, notes, PDF, DOCX and PPTX; retain unsupported/extraction gaps |
+| Scientific reasoning | Source authority, competing explanations, controls, scoped decisions, inventory readiness, missingness and independent-unit accounting |
+| Analysis | Execute explicitly trusted Python from an immutable Git revision on copied inputs; retain environment, configuration, decisions, logs, QC and output hashes; verify/replay |
+| Controlled synthesis | Freeze scope, selection, exact extraction and comparability; calculate fixed/random effects and prespecified sensitivity analyses; expose unresolved judgements |
+| Literature and visuals | Use the host's browsing/document/vision tools; record what was actually inspected and where gaps remain |
+| Editable artifacts | Create and conversationally revise manuscripts, proposals, supplements, figures and presentations; export DOCX/PPTX/HTML/SVG/PNG and attribute exact-byte inspection |
+| New evidence | Retain versions; identify affected analyses, figures, prose and decks; reject stale current exports; recompute and revise with history |
+| Review and recovery | Freeze review baselines, track atomic requests and exact evidence, preserve human decisions, checkpoint tasks and reconcile uncertain actions before retry |
 
-The interface and scientific data stay on your computer. External model transmission occurs only when you choose a configured external model and explicitly permit sharing each selected record and writing/discussion context. Explicit Crossref searches send only the public query you type. A local model server is responsible for its own onward network behavior; a local endpoint does not certify zero egress.
+All ten original workflow stages and 53 detailed controls are mapped in the [coverage matrix](docs/WORKFLOW_COVERAGE.md). It distinguishes enforced code, host procedures, manual scientific judgement and demonstrated paths. A procedure's presence does not imply every branch has been empirically validated.
 
-## Write and present your study
+## Host and scientific boundaries
 
-The writing example opens with a six-section manuscript, a registered figure, four editable slides, a reference, project notes and a discussion topic. All content is fictional.
+The current host supplies conversation, inference, browsing, file access, Python, vision and native artifact views. The core is provider-independent. The optional action-capable MCP server exposes the same scientific services; MCP does not supply an agent runtime or transfer credentials. See the [capability matrix](docs/HOST_CAPABILITIES.md).
 
-1. Open **Manuscripts** and the teaching manuscript. Edit individual sections; attach figures and references; mark supplementary sections.
-2. Select a passage, choose evidence and ask for a rewrite or provenance check. Inspect the suggestion and citations before applying it with your name. The default demo exercises the tools; connect a real model for actual language generation.
-3. Inspect the assembled manuscript and download Word or HTML. References and supplements travel with it.
-4. Open **Presentations**. Edit slide titles, body text, speaker notes and figure links, then download an editable PowerPoint deck.
-5. Use **Project library** to import permitted PDFs, Word files, PowerPoint files, proposals or text. Register selected excerpts from long documents for bounded model use.
-6. Use **References** to enter details or explicitly search Crossref. In **Discussions**, select project evidence and literature excerpts and discuss alternatives, controls or next experiments.
+This is a single-user local prototype. Trusted Python execution is **not a sandbox**. Local storage does not mean local model inference. Access is not publication permission. The package does not operate laboratory equipment, silently install analysis dependencies, procure compute, certify data rights or approve science. Scientific decisions remain attributed human judgements. Calculations and output identities are reproducible within declared environments/tolerances; identical LLM wording is not promised.
 
-See the [authoring guide](docs/AUTHORING_GUIDE.md) for selection, review, reference, export and recovery details.
+The v0.2 browser application remains available as a focused record and artifact editor. Its bounded Q&A provider and older four-tool MCP bridge are legacy interfaces. See the [legacy authoring guide](docs/AUTHORING_GUIDE.md) if that view is useful.
 
-## Try one complete workflow
+## Manuals and engineering
 
-1. Inspect the two synthetic source notes, including the contradictory pilot, in **Research records**.
-2. Open **Model runner**, select those notes, and ask what the example supports. The demonstration runs real search/read/finish tools without an LLM.
-3. Inspect quoted passages and the tool trace. Save an **unreviewed draft**, then edit or review it.
-4. Open **Analysis & figures**, choose *Synthetic fluorescence readings*, and use `signal`, `group`, and `day` as the columns.
-5. Group means should be **11 and 14**, with **three independent days per group**. Twelve readings are not 12 independent replicates. This is a synthetic known-answer fixture, not a biological result.
-6. Inspect parameters, input revisions and SVG. Review upstream records first. After reviewing an analysis, use **Regenerate linked figure** to bind a new figure to that revision.
-7. Download JSON and Markdown from **History & exports**. Stop the application and copy the whole workspace directory, including attachments, for a restorable backup.
-
-The [user manual](docs/USER_MANUAL.md) explains every screen, record type, review state and recovery path.
-
-## What the beta does
-
-| Research need | Implemented behavior |
-| --- | --- |
-| Data provenance | Stable IDs, content hashes, version history, input revisions and directed links among evidence, methods, data, analyses, outputs and claims |
-| Materials and protocols | Versioned records with source locations, explicit uncertainty and dataset links |
-| Evidence and bias audit | Citation/lineage integrity checks plus clearly labelled completeness and scientific-risk screening |
-| Data analysis | Strict CSV input, missingness accounting and equal-weight independent-unit group summaries |
-| Meta-analysis | Independent-study inverse-variance fixed-effect and DerSimonian–Laird random-effects calculations with heterogeneity and uncertainty |
-| Figures | Reproducible SVG summaries and forest plots linked to calculation and input revision |
-| Experiments and planning | Selected-evidence proposals; editable experiment and decision records |
-| Article writing | Section editor and assembled manuscript, passage proposals with human apply, linked figures, bibliography, supplements, editable Word and HTML exports |
-| Project documents | Original-byte PDF/DOCX/PPTX/text import, hashes, extracted page/slide/paragraph locators and selected excerpts; no OCR or layout reconstruction |
-| References | Editable bibliography, explicit Crossref metadata search, links to separately imported full text |
-| Presentations | Slide editor, four restrained layouts, registered figures, speaker notes and editable PPTX export |
-| Research directions | Persistent evidence-scoped discussions, explicit prior-turn context, alternatives and proposed experiments; no implicit current-field knowledge |
-| Journal selection | Evidence-backed proposal tasks; current journal facts require registered official sources |
-| Terminology | Preferred terms, definitions, aliases, evidence links and revision review |
-| Software/data/article association | Software records for repository URL, immutable commit, environment and run details, linked to analyses and manuscripts |
-| Human control | Explicit source selection, editable drafts, named revision-bound reviews, stale-evidence invalidation and no model approval tool |
-| Sharing and extensibility | Installable Python package, local browser UI, CLI, MCP tools and a small provider interface |
-
-The beta does not automatically acquire restricted full text, perform OCR or table reconstruction, run arbitrary analysis code, operate laboratory equipment, submit articles or push to GitHub. An external agent may use its own tools for those tasks under its own permissions; Scientist OS does not sandbox that host. Keep large raw data in authoritative storage and register checked excerpts, metadata and immutable software references. Imported documents are reading aids, not independently verified evidence.
-
-## Bring your own model
-
-- **Compatible API:** configure a local or HTTPS OpenAI-compatible chat-completions endpoint and model name. Tool calling is required; compatibility varies by server and model.
-- **Codex, Claude Code and other MCP clients:** the host supplies its own model. Scientist OS supplies selected-record read/search tools, task packets and validated proposal submission. There is no approval tool.
-- **Custom adapter:** implement `Provider.complete(messages, tools)` for another API protocol. The scientific records and review logic remain unchanged.
-
-See [provider configuration and MCP examples](docs/PROVIDERS.md). No model weights are bundled. A coding-assistant subscription is not assumed to include a separate API budget. No paid inference was used to verify this release.
-
-## Why a local browser app?
-
-It combines an approachable interface, local scientific data, cross-platform Python installation and an auditable repository. Shared hosting would require accounts, tenant isolation, quotas and data governance. A signed executable could simplify distribution later; neither is claimed in this beta. The Python and MCP interfaces support future interfaces without replacing the evidence model. See the [architecture](docs/ARCHITECTURE.md).
-
-## Documentation
-
-- [User manual](docs/USER_MANUAL.md)
-- [Manuscript, library and presentation guide](docs/AUTHORING_GUIDE.md)
-- [Model/API/MCP connections](docs/PROVIDERS.md) and [compatibility scope](docs/MODEL_COMPATIBILITY.md)
-- [Scientific methods and assumptions](docs/METHODS.md)
-- [Architecture](docs/ARCHITECTURE.md) and [development guide](CONTRIBUTING.md)
-- [Source audit and migration](docs/SOURCE_AUDIT.md)
-- [Evaluation protocol](docs/EVALUATION_PROTOCOL.md) and [synthetic cases](examples/evaluation_cases.json)
-- [Release verification](docs/RELEASE_CHECKLIST.md), [security boundaries](SECURITY.md), and [changes](CHANGELOG.md)
-- [Product roadmap and evidence gates](docs/PRODUCT_ROADMAP.md)
-
-## Reproduce the checks
+- [Installation](docs/HOST_INSTALLATION.md), [conversation](docs/CONVERSATIONAL_MANUAL.md), [state and recovery](docs/HOST_STATE.md)
+- [Execution](docs/EXECUTION.md), [controlled meta-analysis](docs/META_REVIEW.md), [scientific methods](docs/METHODS.md)
+- [Procedures](docs/SCIENTIFIC_PROCEDURES.md), [coverage](docs/WORKFLOW_COVERAGE.md), [capabilities](docs/HOST_CAPABILITIES.md)
+- [Verification](docs/PROTOTYPE_VERIFICATION.md), [first host observations](docs/HOST_JOURNEY_OBSERVATIONS.md), [fresh continuation](docs/FRESH_RESUME_OBSERVATIONS.md)
+- [Extension guide](docs/HOST_EXTENSION_GUIDE.md), [contributing](CONTRIBUTING.md), [security](SECURITY.md), [changes](CHANGELOG.md)
 
 ```sh
 uv sync --frozen --all-extras
 uv run pytest
-uv run ruff check src tests
+uv run ruff check src tests scripts
 node scripts/check_frontend.cjs
 uv build
-uv run scientist-os audit --workspace workspaces/teaching
+uv run python scripts/check_release.py
 ```
 
-The MCP test launches a real stdio client and server. On Windows it needs ordinary process/pipe permissions; restricted agent sandboxes can block named-pipe creation before server startup. Run the release check on the normal host. Dependency deprecation warnings are documented in the verification record.
+Real MCP subprocess tests need normal process/pipe permissions; restricted Windows agent sandboxes may deny named-pipe startup. Local live-host checks and automated cross-platform tests are reported separately.
 
 ## Provenance and license
 
-The reusable workflow was derived from private Cell-iSCAT-Writing revision `00273003a5154672583888c6993751ad463f977e`. Its clone is preserved locally in an ignored `.upstream` directory. This repository uses fresh product history and newly implemented generic code. No original manuscript, unpublished dataset, scientific screenshot, source record or private sibling application is included.
-
-Generic software and workflows use [Apache-2.0](LICENSE). Original fictional fixtures use CC0-1.0 as described in [NOTICE](NOTICE). Third-party dependencies retain their licenses; no imported third-party skill code is redistributed. Pablo defines the scientific intent and release decisions. Agent-assisted engineering checks are separate from human scientific validation.
+The generic workflow derives from the privately preserved Cell-iSCAT-Writing workflow. Original scientific records, manuscripts, unpublished data and screenshots remain outside this repository and its distributions. Generic implementation and procedures use [Apache-2.0](LICENSE); original fictional examples use CC0-1.0 under [NOTICE](NOTICE). Dependencies retain their licenses. Pablo defines the scientific intent and decisions; agent-generated implementation and its checks are recorded separately from human scientific validation.

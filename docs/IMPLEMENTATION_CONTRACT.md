@@ -1,4 +1,28 @@
-# Beta implementation contract
+# Implementation contract
+
+## 0.3 conversational prototype (supersedes conflicting historical restrictions)
+
+The primary runtime is a capable local agent host with installed scientific skills,
+Python CLI tools, durable scientific state and native artifact previews. Host tools
+may inspect permitted files, browse, edit and execute Python, delegate disjoint work,
+and create/revise derived artifacts under existing task authorization. The legacy
+selected-record proposal runtime remains a supported narrow beta surface, not the
+Scientist OS conversational runtime. Its prohibition on arbitrary execution and its
+selected-record context restrictions apply only to that legacy runtime.
+
+Scientific approval is a distinct attributed human decision. Agent-generated drafts,
+plans, extracts and calculations do not become approved through execution. Sources
+remain private/immutable; portable workflows and fictional fixtures are releasable.
+No additional paid inference or compute is authorized. Use the current host's actual
+inference and tools and report capability-specific demonstrations honestly.
+
+Current disjoint ownership: state agent owns new `host_state.py`, `ingestion.py`
+and their tests; analysis agent owns new `execution.py`, `meta_review.py`, their
+tests and analysis fixtures; procedure agent owns `host-package/` and workflow
+coverage/procedure documentation; lead owns integration, CLI/MCP, installation,
+artifacts, verification and other files. Do not change another lane without agreement.
+
+## Historical 0.1/0.2 contract
 
 Version 0.2 extends this base contract with [authoring studio](STUDIO_CONTRACT.md),
 [publishing/library](PUBLISHING_CONTRACT.md), and [release scope](AUTHORING_RELEASE.md).

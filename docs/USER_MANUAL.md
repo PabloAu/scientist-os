@@ -1,3 +1,5 @@
+> Historical v0.2 browser/bounded-provider documentation. For the current conversational prototype, start with [the host manual](CONVERSATIONAL_MANUAL.md) and [0.3 verification](PROTOTYPE_VERIFICATION.md).
+
 # Scientist OS user manual
 
 For the 0.2 authoring workspace, start with the [authoring guide](AUTHORING_GUIDE.md): manuscript sections, passage refinement, references, project documents, PowerPoint and research discussions. The record, analysis and review principles below still apply. **Project**, **Model runner**, and **History & exports** replace the older Overview, Research assistant, and Activity & exports labels.

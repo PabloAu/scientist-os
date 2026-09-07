@@ -1,3 +1,5 @@
+> Historical v0.2 browser/bounded-provider documentation. For the current conversational prototype, start with [the host manual](CONVERSATIONAL_MANUAL.md) and [0.3 verification](PROTOTYPE_VERIFICATION.md).
+
 # Evaluation protocol: synthetic grounding and scientific boundaries
 
 Protocol version 1, frozen 6 September 2026. Fixture file: [`examples/evaluation_cases.json`](../examples/evaluation_cases.json). This is a small engineer-authored synthetic evaluation set. It is not a human-annotated benchmark, a representative sample of scientists, a clinical/biological validation, or a measured live-model performance result.
