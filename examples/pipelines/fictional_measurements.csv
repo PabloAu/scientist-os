@@ -1,0 +1,11 @@
+condition,preparation,technical_measurement,residual_nm
+uncorrected,A1,1,9
+uncorrected,A1,2,11
+uncorrected,A2,1,8
+uncorrected,A3,1,5
+uncorrected,A3,2,7
+corrected,B1,1,5
+corrected,B1,2,7
+corrected,B2,1,4
+corrected,B3,1,1
+corrected,B3,2,3
